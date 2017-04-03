@@ -1,0 +1,24 @@
+# Fix line endings on Windows
+init:
+  - git config --global core.autocrlf true
+environment:
+  matrix:
+    - nodejs_version: "6.9.4"
+platform:
+  - x86
+  - x64
+install:
+  - ps: Install-Product node $env:nodejs_version
+  - npm cache clean
+  - npm install
+test_script:
+  # Output useful info for debugging.
+  - node --version
+  - npm --version
+  # Run the test
+  - cmd: npm test -- -R dot --check-leaks
+build: off
+matrix:
+  fast_finish: true
+cache:
+  - node_modules -> package.json                                        # local npm modules

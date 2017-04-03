@@ -1,0 +1,10 @@
+*.log
+.DS_Store
+dist
+coverage
+.nyc_output
+node_modules
+
+# sass
+.sass-cache
+*.map
