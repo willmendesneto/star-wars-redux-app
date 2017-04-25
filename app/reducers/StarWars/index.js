@@ -1,7 +1,6 @@
 import * as types from '../../actions/StarWars/types';
-const INITIAL_STATE = { all: [], single: {}, next: '', previous: '' };
 
-const starWarsReducer = (state = INITIAL_STATE, action) => {
+export default (state = {}, action) => {
   switch (action.type) {
     case types.FETCH_PEOPLE:
       return {
@@ -9,11 +8,6 @@ const starWarsReducer = (state = INITIAL_STATE, action) => {
         all: action.payload.data.results,
         next: action.payload.data.next,
         previous: action.payload.data.previous
-      };
-    case types.FETCH_PERSON_DETAILS:
-      return {
-        ...state,
-        person: action.payload.data,
       };
     case types.FILTER:
       return {
@@ -24,5 +18,3 @@ const starWarsReducer = (state = INITIAL_STATE, action) => {
       return state;
   }
 };
-
-export default starWarsReducer;

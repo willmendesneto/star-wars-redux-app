@@ -14,7 +14,7 @@ class StarWarsWrapper extends Component {
     fetchPeople: PropTypes.func.isRequired,
     fetchPeopleByPaginationURL: PropTypes.func.isRequired,
     filterTable: PropTypes.func.isRequired,
-    people: PropTypes.array.isRequired
+    people: PropTypes.array
   }
 
   constructor(props) {
@@ -45,15 +45,15 @@ class StarWarsWrapper extends Component {
   }
 
   render() {
+    if (!this.props.people || !this.props.people.length) {
+      return <LoadingContent />;
+    }
+
     const {
       people,
       next,
       previous
     } = this.props;
-
-    if (!people.length) {
-      return <LoadingContent />;
-    }
 
     return (
       <div className="row">

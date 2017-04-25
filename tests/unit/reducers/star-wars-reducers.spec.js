@@ -1,5 +1,6 @@
 import { expect } from 'chai';
-import reducer from '../../../app/reducers';
+import reducer from '../../../app/reducers/StarWars/index';
+import person from '../../../app/reducers/StarWars/person';
 import {
     FETCH_PEOPLE,
     FILTER,
@@ -10,17 +11,7 @@ describe('People Reducer', () => {
 
   it('should return default reducer object data if action does NOT exist', () => {
     const state = Object.freeze({});
-    expect(reducer(state, {type: 'INVALID'})).to.eql({
-      people: {
-        all: [],
-        next: '',
-        previous: '',
-        single: {},
-      },
-      routing: {
-        locationBeforeTransitions: null
-      }
-    });
+    expect(reducer(state, {type: 'INVALID'})).to.eql({});
   });
 
   it('should return a reduced data based in "fetch people" state', () => {
@@ -37,15 +28,10 @@ describe('People Reducer', () => {
       }
     };
     expect(reducer(state, action)).to.eql({
-      people: {
-        all: action.payload.data.results,
-        next: action.payload.data.next,
-        previous: action.payload.data.previous,
-        single: {}
-      },
-      routing: {
-        locationBeforeTransitions: null
-      }
+      state: 'VALID',
+      all: action.payload.data.results,
+      next: action.payload.data.next,
+      previous: action.payload.data.previous
     });
   });
 
@@ -59,19 +45,9 @@ describe('People Reducer', () => {
         }
       }
     };
-    expect(reducer(state, action)).to.eql({
-      people: {
-        all: [],
-        next: '',
-        previous: '',
-        single: {},
-        person: {
-          person: action.payload.data.person
-        }
-      },
-      routing: {
-        locationBeforeTransitions: null
-      }
+    expect(person(state, action)).to.eql({
+      person: action.payload.data.person,
+      state: 'VALID'
     });
   });
 
@@ -85,16 +61,8 @@ describe('People Reducer', () => {
     };
     const data = reducer(state, action);
     expect(data).to.eql({
-      people: {
-        all: [],
-        filter: action.payload.filter,
-        next: '',
-        previous: '',
-        single: {}
-      },
-      routing: {
-        locationBeforeTransitions: null
-      }
+      state: 'VALID',
+      filter: action.payload.filter
     });
   });
 });

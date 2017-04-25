@@ -34,8 +34,9 @@ class StarWarsDetailsWrapper extends Component {
 }
 
 const mapStateToProps = (state) => {
+  console.log('mapStateToProps', state);
   return {
-    person: state.people.person
+    person: state.person
   };
 };
 
